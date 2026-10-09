@@ -1,5 +1,5 @@
 import unittest
-from main import sanitize
+from eval import sanitize
 
 class TestMathFunctions(unittest.TestCase):
 
