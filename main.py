@@ -3,8 +3,8 @@
 Remove spaces from the string, then make sure it contains only valid arithmetic characters
 '''
 def sanitize(my_string):
-    # strip all spaces from the string
-    my_string = my_string.replace(" ", "")
+    # strip all spaces, tabs, and newlines from the string
+    my_string = my_string.replace(" ", "").replace("\t", "").strip()
     # allow only arithmetic characters (digits and decimal point, operators, parentheses)
     allowed_chars = "0123456789.+-*/()"
     for char in my_string:
