@@ -1,7 +1,7 @@
 '''
 Simple math calculator without using eval()
 
-This will handle basic match and a single level deep parentheses
+This will handle basic math and a single level deep parentheses as that was the scope of the task.
 Nested parentheses aren't supported.
 '''
 
@@ -24,6 +24,7 @@ Example: "4+ ((60 * 8) +7)- 9"
 '''
 def calculate(my_string: str) -> int | float:
     my_string = sanitize(my_string)
+    # see if we have more than one level of parentheses
     # string length
     print(f"******* String: {my_string}")
     length = len(my_string)
@@ -37,6 +38,9 @@ def calculate(my_string: str) -> int | float:
     for i in range(length):
         print(f"Processing character: {my_string[i]}")
         if my_string[i] == '(':
+            # see if we're already inside parentheses (nested)
+            if in_parentheses:
+                raise ValueError("Nested parentheses are not supported")
             in_parentheses = True
             continue
         if my_string[i] == ')':
@@ -92,6 +96,7 @@ if __name__ == "__main__":
         "6 +3-2",
         "10 / 2",
         "5 +( 5 - 2)",
+        "5 + ((5 - 2))"
     ]
     for problem in problems:
         try:
@@ -100,4 +105,5 @@ if __name__ == "__main__":
             eval_result = eval(sanitized)
         except (ValueError, ZeroDivisionError) as e:
             result = str(e)
-        print(f"------ {problem}: {sanitized} = {result} (eval: {eval_result})")
+        finally:
+            print(f"------ {problem}: {sanitized} = {result} (eval: {eval_result})")
