@@ -2,7 +2,7 @@
 '''
 Remove spaces from the string, then make sure it contains only valid arithmetic characters
 '''
-def sanitize(my_string):
+def eval_sanitize(my_string):
     # strip all spaces, tabs, and newlines from the string
     my_string = my_string.replace(" ", "").replace("\t", "").strip()
     # allow only arithmetic characters (digits and decimal point, operators, parentheses)
@@ -18,11 +18,12 @@ if __name__ == "__main__":
         "4 + 4",
         "6 +3-2",
         "5 * 6 + ((202/2) - 1)",
+        "4+ ((60 * 8) +7)- 9",
     ]
     for problem in problems:
         try:
-            sanitized_problem = sanitize(problem)
+            sanitized_problem = eval_sanitize(problem)
             result = int(eval(sanitized_problem))
         except ValueError as e:
             result = str(e)
-        print(f"{problem} = {result}")
+        print(f"{problem}: {sanitized_problem} = {result}")
